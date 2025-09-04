@@ -1,0 +1,12 @@
+﻿# Virtual environment
+resume_env/
+venv/
+.env
+
+# MacOS junk
+__MACOSX/
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
