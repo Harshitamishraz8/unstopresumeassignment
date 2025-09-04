@@ -2,15 +2,21 @@ from dotenv import load_dotenv
 import os
 import google.generativeai as genai
 import json
+import streamlit as st  # ✅ add this for Streamlit Secrets support
 
-load_dotenv()  # load env variables
+# Load local .env (for local development)
+load_dotenv()
 
 class ResumeScreeningModel:
     def __init__(self):
         """Initialize the Resume Screening Model with Gemini API."""
-        self.api_key = os.getenv("GEMINI_API_KEY")
+        # Try Streamlit secrets first, then fallback to .env
+        self.api_key = st.secrets.get("GEMINI_API_KEY", os.getenv("GEMINI_API_KEY"))
+        
         if not self.api_key:
-            raise ValueError("GEMINI_API_KEY not found in environment variables! Please add it to your .env file.")
+            raise ValueError(
+                "❌ GEMINI_API_KEY not found! Please add it to Streamlit Secrets or .env file."
+            )
         
         genai.configure(api_key=self.api_key)
         self.model = genai.GenerativeModel('gemini-1.5-flash')
