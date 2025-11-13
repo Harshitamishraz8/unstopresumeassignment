@@ -19,7 +19,7 @@ class ResumeScreeningModel:
             )
         
         genai.configure(api_key=self.api_key)
-        self.model = genai.GenerativeModel('gemini-1.5-flash')
+        self.model = genai.GenerativeModel('models/gemini-2.5-flash')
     
     def screen_resume(self, resume_text, job_description_text):
         """
